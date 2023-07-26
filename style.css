@@ -14,10 +14,11 @@ h1 {
     background-position: bottom 100% left 100px;
 }
 
-body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-body{
+body {
     background-color: rgb(255, 128, 0);
 }
 
@@ -42,12 +43,14 @@ p {
     font-weight: bold;
 }    
 
-ul { font-size: 100%;
+ul { 
+    font-size: 100%;
     font-weight: bold;
     
 }
 
-ul li {padding-bottom: 20px;
+ul li {
+    padding-bottom: 20px;
 }
 
 table {
@@ -92,22 +95,27 @@ div#info {
 div#history {
     position: relative;left:50px;
     font-size: 150%;
-    grid-area: history;
-    
+    grid-area: history;    
 }
+
 tbody tr {
     text-align: center;
 }
+
 caption h2 {
     color: aliceblue;    
 }
-h2{
+
+h2 {
     text-shadow:1px 1px 3px rgb(39, 37, 37) 
 }
-.lastmonth{
+
+.lastmonth {
     color: aliceblue;
     opacity: 70%;
 }
+
 .nextmonth {
     color: aliceblue;
-    opacity:70% }
+    opacity:70% 
+}
