@@ -49,9 +49,9 @@ ul li {padding-bottom: 20px;
 }
 
 table {
-    text-shadow:1px 1px 3px rgb(92, 85, 85); 
-    position: relative;left:1px;
-    font-size: 100%;
+    text-shadow:1px 1px 3px rgb(73, 70, 70); 
+    position: relative;left:1px; top: 10px;
+    font-size: 150%;
     border-collapse: collapse;
     background: white;
     color: black;
