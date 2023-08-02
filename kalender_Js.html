@@ -4,30 +4,37 @@
     <link rel="stylesheet" href="style.css" type="text/css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script type="text/javascript" src="Endung.js"></script>
+
+	
     <title>kalender_js</title>
+	
+	
 </head>
 <body>
 	<div id="wrapper">
 		<head> 
 			<h1>
-				KALENDERBLATT vom 24.07.2023
+				
+				KALENDERBLATT vom <span id="day"></span>
 			</h1>
 		</head>	
-
+		
 		<div id="info">
 			<p>
-					Der 24.07.2024 ist ein Montag und zwar der vierte Montag des Monats juli im  Jahr 2023.Es 
-					handelt sich nicht um einen gesetzlichen Feiertag.<br> Der letzte Feiertag vor dem 
-					24.07.2023 war der 08.06.2023 (fronleichnam) und der nächste Feiertag ist 08.08.2023 
-					(Friedensfest)
+				Der <span id="fulldate"></span> ist ein <span id ="weekday"> </span> und zwar der <span id="weekinmonth"></span>. <span id="weekday1"></span> des Monats <span id="month"></span> im  Jahr <Span id="year"></Span>.Es 
+				handelt sich <span id="holiday"></span> um einen gesetzlichen Feiertag.<br> Der letzte Feiertag vor dem 
+				24.07.2023 war der 08.06.2023 (fronleichnam) und der nächste Feiertag ist 08.08.2023 
+				(Friedensfest)
 			</p>
+			
 		</div>
-
+		
 		<div id="history">
 			<h2>
-				Historische Ereignisse am 24.07
+				Historische Ereignisse am <span id="dayhistory"></span>. <span id="monhistory"></span>
 			</h2> 
-		
+			
 			<ul>
 				<li>
 					1953: Walter Ulbricht wird zum Ersten Generalsekretär des Zentralkomitees der Sozialistische Einheitspartei Deutschlands gewählt.
@@ -55,7 +62,7 @@
 		<table>
 			<caption>
 				<h2>
-					juli 2023
+					<span id="tablemonth"></span> <span id="tableyear"></span>
 				</h2>
 			</caption>	
 			<thead>
@@ -77,54 +84,54 @@
 						<td class="lastmonth">28</td>
 						<td class="lastmonth">29</td>
 						<td class="lastmonth">30</td>
-				</div>
-						<td>1</td>
-						<td>2</td>
-					</tr>
-				<tr>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-						<td>7</td>
-						<td>8</td>
-						<td>9</td>
+					</div>
+					<td>1</td>
+					<td>2</td>
 				</tr>
 				<tr>
-						<td>10</td>
-						<td>11</td>
-						<td>12</td>
-						<td>13</td>
-						<td>14</td>
-						<td>15</td>
-						<td>16</td>
+					<td>3</td>
+					<td>4</td>
+					<td>5</td>
+					<td>6</td>
+					<td>7</td>
+					<td>8</td>
+					<td>9</td>
 				</tr>
 				<tr>
-						<td>17</td>
-						<td>18</td>
-						<td>19</td>
-						<td>20</td>
-						<td>21</td>
-						<td>22</td>
-						<td>23</td>
+					<td>10</td>
+					<td>11</td>
+					<td>12</td>
+					<td>13</td>
+					<td>14</td>
+					<td>15</td>
+					<td>16</td>
 				</tr>
 				<tr>
-						<td class="today">24</td>
-						<td>25</td>
-						<td>26</td>
-						<td>27</td>
-						<td>28</td>
-						<td>29</td>
-						<td>30</td>
+					<td>17</td>
+					<td>18</td>
+					<td>19</td>
+					<td>20</td>
+					<td>21</td>
+					<td>22</td>
+					<td>23</td>
 				</tr>
 				<tr>
-						<td>31</td>
-						<td class="nextmonth">1</td>
-						<td class="nextmonth">2</td>
-						<td class="nextmonth">3</td>
-						<td class="nextmonth">4</td>
-						<td class="nextmonth">5</td>
-						<td class="nextmonth">6</td>
+					<td class="today">24</td>
+					<td>25</td>
+					<td>26</td>
+					<td>27</td>
+					<td>28</td>
+					<td>29</td>
+					<td>30</td>
+				</tr>
+				<tr>
+					<td>31</td>
+					<td class="nextmonth">1</td>
+					<td class="nextmonth">2</td>
+					<td class="nextmonth">3</td>
+					<td class="nextmonth">4</td>
+					<td class="nextmonth">5</td>
+					<td class="nextmonth">6</td>
 				</tr>
 			</tbody>
 		</table>

@@ -19,25 +19,15 @@ body {
 }
 
 body {
-    background-color: rgb(255, 128, 0);
+    background-color: rgb(255, 144, 33);
 }
 
 h2 { 
     color: rgb(240, 16, 16); 
     color: #a52a2a;;
+    text-shadow:1px 1px 3px rgb(39, 37, 37) 
 } 
    
-td {
-    font-weight: bold;
-}
-
-td.today {
-    border: 3px solid rgb(0, 0, 0);
-    text-shadow:3px 3px 5px rgb(0, 0, 0); 
-    background: rgb(255, 1, 1);
-    color: white;
-}
-
 p {
     font-size: 100%;
     font-weight: bold;
@@ -51,33 +41,6 @@ ul {
 
 ul li {
     padding-bottom: 20px;
-}
-
-table {
-    text-shadow:1px 1px 3px rgb(73, 70, 70); 
-    position: relative;left:1px; top: 10px;
-    font-size: 150%;
-    border-collapse: collapse;
-    background: white;
-    color: black;
-    background-color: lightgrey;
-    border: 3px solid rgb(255, 255, 255);
-    grid-area: calendar;
-}
-
-table caption {
-    background-color: #a52a2a;
-    border: 3px solid rgb(255, 255, 255);
-}
-
-th {
-    color: white; 
-    background: rgb(255, 128, 0);
-}
-
-th.weekend {
-    color: white; 
-    background: rgb(255, 1, 1);
 }
 
 div#wrapper {
@@ -98,16 +61,50 @@ div#history {
     grid-area: history;    
 }
 
-tbody tr {
-    text-align: center;
+table {
+    text-shadow:1px 1px 3px rgb(73, 70, 70); 
+    position: relative;left:1px; top: 10px;
+    font-size: 150%;
+    border-collapse: collapse;
+    background: white;
+    color: black;
+    background-color: lightgrey;
+    border: 3px solid rgb(255, 255, 255);
+    grid-area: calendar;
+}
+
+td{
+    font-weight: bold;
+}
+
+td.today {
+    border: 3px solid rgb(0, 0, 0);
+    text-shadow:3px 3px 5px rgb(0, 0, 0); 
+    background: rgb(255, 1, 1);
+    color: white;
+}
+
+table caption {
+    background-color: #a52a2a;
+    border: 3px solid rgb(255, 255, 255);
 }
 
 caption h2 {
     color: aliceblue;    
 }
 
-h2 {
-    text-shadow:1px 1px 3px rgb(39, 37, 37) 
+th {
+    color: white; 
+    background: rgb(255, 128, 0);
+}
+
+th.weekend {
+    color: white; 
+    background: rgb(255, 1, 1);
+}
+
+tbody tr {
+    text-align: center;
 }
 
 .lastmonth {
