@@ -23,9 +23,9 @@
 		<div id="info">
 			<p>
 				Der <span id="fulldate"></span> ist ein <span id ="weekday"> </span> und zwar der <span id="weekinmonth"></span>. <span id="weekday1"></span> des Monats <span id="month"></span> im  Jahr <Span id="year"></Span>.Es 
-				handelt sich <span id="holiday"></span> um einen gesetzlichen Feiertag.<br> Der letzte Feiertag vor dem 
+				handelt sich <span id="holiday"></span> um einen gesetzlichen Feiertag.<!-- <br> Der letzte Feiertag vor dem 
 				24.07.2023 war der 08.06.2023 (fronleichnam) und der nächste Feiertag ist 08.08.2023 
-				(Friedensfest)
+				(Friedensfest) -->
 			</p>
 			
 		</div>
@@ -60,15 +60,19 @@
 		</div>
 		<table>
 			<caption>
-				<h2>
-					<i class="fas fa-angle-left
-					prev"></i>
-					<span id="tablemonth"></span> <span id="tableyear"></span>
-					<i class="fas fa-angle-right
-					next"></i>
-				</h2> 
+				<div class="weeek">
+			<h2>
+				<div class="icons">
+					<!-- <span class="fas fa-angle-left prev"></span> -->
+					<!-- <span class="fas fa-angle-right next"></span> -->
+					<span id="tablemonth"></span>
+					<span id="tableyear"></span>
+					<button id="btnPrev" type="button"onclick="lastmonth()"></button>
+					<button id="btnNext" type="button" onclick="nextMonth()"></button>
+				</div>
+			</h2> 
 			</caption>	
-			<thead>
+			<thead>  
 				<div class="weeek">
 				<tr>
 					<th>Mon</th>
@@ -82,9 +86,9 @@
 				</div>
 			</thead>
 
-		<tbody 
-			id="days"> 	
-			<span class="today"></span>
+		<tbody
+		id="days" onclick> 
+			
 		</tbody>
 	
 			<!-- <tbody>

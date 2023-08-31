@@ -1,68 +1,115 @@
+var date = new Date();
 
 window.onload = function () {
   main();
 };
 
 function main() {
-  checkHoliday();
-  const date = new Date();
+  buildPage();
+}
+function buildPage() {
   const dateFormat = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
   document.getElementById("day").innerHTML = dateFormat;
   document.getElementById("fulldate").innerHTML = dateFormat;
-  const currentDate = new Date();
+
+
+  checkHoliday(date);
+
   const daysTag = document.getElementById("days");
-  const currentMonth = currentDate.getMonth();
-  const currentYear = currentDate.getFullYear();
+  //aktuellen Monat und Jahr
+  const currentMonth = date.getMonth();
+  const currentYear = date.getFullYear();
+  //den ersten Tag des aktuellen Monats berechnen
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+  //den letzten Tag des aktuellen monat berechnen
   const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
   const daysInMonth = [];
+  
   for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
     daysInMonth.push(day);
   }
   
-  let liTag = "";
-  let dayOfWeek = firstDayOfMonth.getDay();
-  for (let i =1; i < dayOfWeek; i++) {
-  liTag += "<td></td>";
-}
+  const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
+  const daysFromPrevMonth = (firstDayOfMonth.getDay() + 6) % 7;
+  
+  const liTag = [];
+  let dayOfWeek = (firstDayOfMonth.getDay() + 6) % 7;
+  
 
-daysInMonth.forEach((day) => {
-  liTag += `<td>${day}</td>`;
-  if (new Date(currentYear, currentMonth, day).getDay() === 0) {
-    liTag += "</tr><tr>";
+  for (let i = prevMonthLastDay - daysFromPrevMonth + 1; i <= prevMonthLastDay; i++) {                    //für den letzten Monat
+    liTag.push(`<td class="prev-month">${i}</td>`);
   }
-});
-daysTag.innerHTML = liTag;
+  
+ 
+  daysInMonth.forEach((day) => {             // für den aktuellen Monat
+    if (
+      day === date.getDate() &&
+      currentYear === date.getFullYear() &&
+      currentMonth === date.getMonth()
+    ) {
+      liTag.push(`<td class="today" onclick="DayClick(${day})">${day}</td>`);
+    } else {
+      liTag.push(`<td onclick="DayClick(${day})">${day}</td>`);
+    }
+  
+    if ((dayOfWeek + 1) % 7 === 0) {
+      liTag.push("</tr><tr>");
+    }
+  
+    dayOfWeek = (dayOfWeek + 1) % 7;
+  });
+  
+    
+  for (let i = 1; i <= 6 - ((dayOfWeek + 6) % 7); i++) {         // für den nächsten Monat
+    liTag.push(`<td class="next-month">${i}</td>`);
+  }
+  
+  daysTag.innerHTML = liTag.join('');
+
 
   const monthNames = [
     "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
     "September", "Oktober", "November", "Dezember"
   ];
-  const d = new Date();
-  const monthName = monthNames[d.getMonth()];
+  const monthName = monthNames[date.getMonth()];
   document.getElementById("month").innerHTML = monthName;
+
   const weekdayNames = [
     "Sonntag", "Montag", "Dienstag", "Mittwoch",
     "Donnerstag", "Freitag", "Samstag"
   ];
 
-  const dayName = weekdayNames[d.getDay()];
-  document.getElementById("weekday").innerHTML = dayName;
-  document.getElementById("weekday1").innerHTML = dayName;
-  document.getElementById("year").innerHTML = new Date().getFullYear();
-  document.getElementById("weekinmonth").innerHTML = (getWeekOfMonth(date));
+  const dayName = weekdayNames[date.getDay()];
+document.getElementById("weekday").innerHTML = dayName;
+document.getElementById("weekday1").innerHTML = dayName;
+document.getElementById("year").innerHTML = date.getFullYear();
+document.getElementById("weekinmonth").innerHTML = getWeekOfMonth(date);
 
-  function getWeekOfMonth(date) {
-    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-    const dayOfWeekFirstDay = firstDayOfMonth.getDay();
-    const dayOfMonth = date.getDate();
-    let weekNumber = Math.ceil((dayOfMonth + dayOfWeekFirstDay - 1) / 7);
-    return weekNumber;
+function getWeekOfMonth(date) {
+  let day = date.getDate();
+  let weekNumber;
+  if (day <= 7) {
+    weekNumber = 1;
+  } else if (day <= 14) {
+    weekNumber = 2;
+  } else if (day<=21 ){
+    weekNumber = 3;
+  } else if (day <= 28 ){
+    weekNumber = 4;
+  } else {
+    weekNumber=5;
   }
+  // let weekNumber;
+  // let weekNumber = Math.ceil(day / 7);
+  return weekNumber;
+}
+
   document.getElementById("dayhistory").innerHTML = date.getDate();
   document.getElementById("monhistory").innerHTML = monthName;
+  console.log('TABLEMONTH');
   document.getElementById("tablemonth").innerHTML = monthName;
-  document.getElementById("tableyear").innerHTML = new Date().getFullYear();
+  console.log('TABLEYEAR');
+  document.getElementById("tableyear").innerHTML = date.getFullYear();
 }
 
 function calculateEaster(year) {
@@ -81,70 +128,87 @@ function calculateEaster(year) {
             const month = Math.floor((h + l - 7 * m + 114) / 31);
             const day = ((h + l - 7 * m + 114) % 31) + 1;
             return new Date(year, month - 1, day);
-          }
+}
           
-          function calculateHolidays(year) {
-            const holidays = [];
-            // Fixed holidays
-            holidays.push(new Date(year, 0, 1));
-            holidays.push(new Date(year, 4, 1));
-    holidays.push(new Date(year, 9, 3));
-    holidays.push(new Date(year, 11, 25));
-    holidays.push(new Date(year, 11, 26));
-    // Easter holidays
-    const easterSunday = calculateEaster(year);
-    holidays.push(easterSunday);
-    holidays.push(addDays(easterSunday, -2));
-    holidays.push(addDays(easterSunday, 1));
-    // Ascension Day (40 days after Easter)
-    holidays.push(addDays(easterSunday, 39));
-    
-    // Pentecost holidays (50 days after Easter)
-    holidays.push(addDays(easterSunday, 49));
-    holidays.push(addDays(easterSunday, 50));
-    
-    return holidays;
-  }
+function calculateHolidays(year) {
+  const holidays = [];
+  // Fixed holidays
+  holidays.push(new Date(year, 0, 1));
+  holidays.push(new Date(year, 4, 1));
+  holidays.push(new Date(year, 9, 3));
+  holidays.push(new Date(year, 11, 25));
+  holidays.push(new Date(year, 11, 26));
+  // Easter holidays
+  const easterSunday = calculateEaster(year);
+  holidays.push(easterSunday);
+  holidays.push(addDays(easterSunday, -2));
+  holidays.push(addDays(easterSunday, 1));
+  // Ascension Day (40 days after Easter)
+  holidays.push(addDays(easterSunday, 39));
   
-  function addDays(date, days) {
-    return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
-  }
+  // Pentecost holidays (50 days after Easter)
+  holidays.push(addDays(easterSunday, 49));
+  holidays.push(addDays(easterSunday, 50));
+  return holidays;
+}
   
-  function isHoliday(date, holidays) {
-    return holidays.some(holiday => date.toDateString() === holiday.toDateString());
-  }
+function addDays(date, days) {
+  return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
+}
+
+function isHoliday(date, holidays) {
+  return holidays.some(holiday => date.getTime() === holiday.getTime());
   
-  function checkHoliday() {
-    const today = new Date();
-    const nextYear = today.getFullYear();
-    const holidays = calculateHolidays(nextYear);
-    const holidayDiv = document.getElementById("holiday");
+}
+
+function checkHoliday(date) {
+  
+  const nextYear = date.getFullYear();
+  const holidays = calculateHolidays(nextYear);
+  const holidayDiv = document.getElementById("holiday");
+  
+  
+  if (holidays) {
+    console.log("thisyearHolidays");
+    holidays.forEach(holiday => {
+      console.log(holiday.getTime());
+    });
     
-    if (holidays) {
-      console.log("thisyearHolidays");
-      holidays.forEach(holiday => {
-        console.log(holiday.toDateString());
-      });
-      
-      if (isHoliday(today, holidays)) {
-        console.log("yees");
-        holidayDiv.textContent = "";
-      }
-      else {
-        console.log("no");
-        holidayDiv.textContent = "nicht";
-        }
+    if (isHoliday(date, holidays)) {
+      console.log("yees");
+      holidayDiv.textContent = "";
     }
     else {
-        console.log("Error: Unable to calculate holidays.");
+      console.log("no");
+      holidayDiv.textContent = "nicht";
       }
-    }
-   
-    let today = new Date();
-    let dd = String(today.getDate()).padStart(2, '');
-    document.getElementsByClassName("today").innerHTML=dd
-    document.write(dd);
-    console.log(dd)
-    
-    
-   
+  }
+  
+}
+
+function nextMonth() {
+  console.log('ALTES DATUM: ' + date);
+  date = new Date( date.getFullYear(), date.getMonth() + 1, date.getDate());
+  console.log('NEUES DATUM: ' + date); 
+
+  if (date.getMonth() === 11) {
+    date.setFullYear(date.getFullYear());
+  }
+
+  if (date.getMonth() === 0) {
+    date.setFullYear(date.getFullYear());
+  }
+  buildPage();
+}
+
+function lastmonth(){
+  date = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate());
+  buildPage();
+}
+
+function DayClick(clickedDay) {
+  date = new Date(date.getFullYear(), date.getMonth(), clickedDay);
+  
+  console.log(`${clickedDay}`);
+  buildPage();
+}
