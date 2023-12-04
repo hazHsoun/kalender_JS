@@ -24,23 +24,23 @@ function buildPage() {
   //den letzten Tag des aktuellen monat berechnen
   const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0);
   const daysInMonth = [];
-  
+
   for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
     daysInMonth.push(day);
   }
-  
+
   const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
   const daysFromPrevMonth = (firstDayOfMonth.getDay() + 6) % 7;
-  
+
   const liTag = [];
   let dayOfWeek = (firstDayOfMonth.getDay() + 6) % 7;
-  
+
 
   for (let i = prevMonthLastDay - daysFromPrevMonth + 1; i <= prevMonthLastDay; i++) {                    //für den letzten Monat
     liTag.push(`<td class="prev-month">${i}</td>`);
   }
-  
- 
+
+
   daysInMonth.forEach((day) => {             // für den aktuellen Monat
     if (
       day === date.getDate() &&
@@ -51,19 +51,19 @@ function buildPage() {
     } else {
       liTag.push(`<td onclick="DayClick(${day})">${day}</td>`);
     }
-  
+
     if ((dayOfWeek + 1) % 7 === 0) {
       liTag.push("</tr><tr>");
     }
-  
+
     dayOfWeek = (dayOfWeek + 1) % 7;
   });
-  
-    
+
+
   for (let i = 1; i <= 6 - ((dayOfWeek + 6) % 7); i++) {         // für den nächsten Monat
     liTag.push(`<td class="next-month">${i}</td>`);
   }
-  
+
   daysTag.innerHTML = liTag.join('');
 
 
@@ -129,7 +129,7 @@ function calculateEaster(year) {
             const day = ((h + l - 7 * m + 114) % 31) + 1;
             return new Date(year, month - 1, day);
 }
-          
+
 function calculateHolidays(year) {
   const holidays = [];
   // Fixed holidays
@@ -145,29 +145,56 @@ function calculateHolidays(year) {
   holidays.push(addDays(easterSunday, 1));
   // Ascension Day (40 days after Easter)
   holidays.push(addDays(easterSunday, 39));
-  
+
   // Pentecost holidays (50 days after Easter)
   holidays.push(addDays(easterSunday, 49));
   holidays.push(addDays(easterSunday, 50));
   return holidays;
 }
-  
+
 function addDays(date, days) {
   return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
 }
 
 function isHoliday(date, holidays) {
   return holidays.some(holiday => date.getTime() === holiday.getTime());
-  
+
 }
 
 function checkHoliday(date) {
-  
   const nextYear = date.getFullYear();
   const holidays = calculateHolidays(nextYear);
   const holidayDiv = document.getElementById("holiday");
-  
-  
+
+  if (holidays) {
+    const currentDate = date;
+    let nextHoliday = null;
+    let lastHoliday = null;
+
+    holidays.forEach(holiday => {
+      if (holiday.getTime() > currentDate.getTime()) {
+        if (nextHoliday === null || holiday.getTime() < nextHoliday.getTime()) {
+          nextHoliday = holiday;
+        }
+      } else if (holiday.getTime() < currentDate.getTime()) {
+        if (lastHoliday === null || holiday.getTime() > lastHoliday.getTime()) {
+          lastHoliday = holiday;
+        }
+      }
+    });
+
+    if (nextHoliday !== null) {
+      console.log("der nächste Feiertag ist am " + nextHoliday.toDateString());
+    } else {
+      console.log("error next holiday.");
+    }
+
+    if (lastHoliday !== null) {
+      console.log("der letzte Feiertag war am : " + lastHoliday.toDateString());
+    } else {
+      console.log("error last holiday");
+    }
+  }
   if (holidays) {
     console.log("thisyearHolidays");
     holidays.forEach(holiday => {
@@ -181,9 +208,8 @@ function checkHoliday(date) {
     else {
       console.log("no");
       holidayDiv.textContent = "nicht";
-      }
+    }
   }
-  
 }
 
 function nextMonth() {
@@ -201,14 +227,14 @@ function nextMonth() {
   buildPage();
 }
 
-function lastmonth(){
+function lastMonth(){
   date = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate());
   buildPage();
 }
 
 function DayClick(clickedDay) {
   date = new Date(date.getFullYear(), date.getMonth(), clickedDay);
-  
+
   console.log(`${clickedDay}`);
   buildPage();
 }
